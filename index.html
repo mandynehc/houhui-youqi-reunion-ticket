@@ -84,7 +84,7 @@ function quiz() {
   <h2 id="question" tabindex="-1">${title}</h2><div class="choices" role="group" aria-labelledby="question">${options.map((_, i) => {
     const type = (i + order[page]) % results.length;
     return `<button type="button" class="choice" data-action="answer" data-type="${type}" aria-pressed="${selected === type}"><span class="letter" aria-hidden="true">${'ABCD'[i]}</span><span>${options[type]}</span></button>`;
-  }).join('')}</div></div><div class="stub"><button type="button" class="secondary" data-action="back" ${page === 0 ? 'disabled' : ''}>上一题</button><span class="meta"></span></div>`);
+  }).join('')}</div></div><div class="stub"><button type="button" class="secondary" data-action="back" ${page === 0 ? 'disabled' : ''}>上一题</button></div>`);
 }
 function review() {
   show(`<div class="pad"><h2 tabindex="-1">到站啦，车票准备好了。</h2><p class="intro">20 / 20 题已完成。现在可以查收车票，也可以回去改答案。</p></div><div class="stub"><div class="actions"><button class="primary" data-action="finish">查收你的重逢车票</button><button class="secondary" data-action="review-back">返回修改</button></div></div>`);
