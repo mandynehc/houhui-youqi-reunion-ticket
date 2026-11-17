@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>下一站，好久不见｜后会友期同人小测</title>
+<style>
+:root{color-scheme:light;--ink:#233b32;--muted:#4d6559;--paper:#fffdf4;--line:#ccd6c4;--green:#214e3c;--lime:#dce98e;--bg:#edf0df;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:var(--ink);background:var(--bg)}
+*{box-sizing:border-box}body{margin:0}button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:default;opacity:.55}button:focus-visible,input:focus-visible+.choice{outline:3px solid #7b4929;outline-offset:3px}::selection{background:var(--lime)}
+main{width:min(100% - 32px,740px);margin:0 auto;padding:clamp(20px,5vw,56px) 0 24px}
+.ticket{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 18px 55px #233b3214}
+.pad{padding:clamp(20px,5vw,44px)}h1,h2,p,blockquote{margin:0}h1,.result-name{font-family:"Noto Serif SC","Songti SC",SimSun,serif;font-size:clamp(2.5rem,8vw,4.8rem);line-height:1.12;letter-spacing:-.035em}h2{font-size:clamp(1.35rem,4.5vw,2rem);line-height:1.4}p{line-height:1.75}.intro{margin-top:18px;max-width:31em}.sub{color:var(--muted)}.art{display:block;width:100%;height:auto;background:#dfe9bd}.stub{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px dashed #8da292;padding:18px clamp(20px,5vw,44px)}.meta{font-size:.88rem;color:var(--muted)}
+.primary,.secondary{border:1px solid var(--green);border-radius:9px;padding:11px 17px;min-height:46px}.primary{background:var(--green);color:white}.primary:not(:disabled):hover{background:#316951}.secondary{background:transparent;color:var(--green)}.secondary:hover{background:#e9efda}
+footer{padding:16px 4px;text-align:center;color:var(--muted);font-size:.8rem;line-height:1.55}
+.progress-label{display:flex;justify-content:space-between;gap:10px;font-size:.88rem;font-variant-numeric:tabular-nums}.track{height:7px;border-radius:20px;background:#e1e7d6;margin:9px 0 25px;overflow:hidden}.fill{height:100%;background:#57794a;transition:width .25s ease-out}
+.choices{margin:20px 0 0;display:grid;gap:10px}.choice{display:flex;align-items:center;gap:12px;padding:11px 13px;min-height:52px;border:1px solid var(--line);border-radius:10px;line-height:1.45;text-align:left;background:transparent;color:var(--ink)}.letter{display:grid;place-items:center;flex:0 0 27px;height:27px;border-radius:50%;background:#eaf0dd;font-size:.8rem;font-weight:bold}.choice:hover{border-color:#728c70}.choice:active,.choice[aria-pressed="true"]{background:#edf3d3;border-color:#557347}.choice[aria-pressed="true"] .letter{background:var(--green);color:white}
+.result-header{background:#dfe9bd}.result-name{margin:8px 0 12px}.result-body{display:grid;gap:16px}.result-body h3{font-size:.95rem;margin:0 0 5px}.stamp{display:inline-block;border:1px solid #607753;border-radius:4px;padding:3px 9px;color:var(--green);font-size:.85rem}.slogan{padding:13px 15px;background:#edf1db;border-radius:6px;line-height:1.55;font-weight:bold}.actions{display:flex;gap:9px;flex-wrap:wrap}.copy-note{margin-top:7px;font-size:.85rem}.fallback{width:100%;margin-top:8px;min-height:65px;font:inherit}
+@media(max-width:420px){.pad{padding:20px}.stub{padding:14px 20px}.choice{padding:9px 10px}.intro{margin-top:13px}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<article class="ticket" id="app"></article>
+<footer>《后会友期》同人娱乐小测 · 嘉宾名是虚构镜头彩蛋，不描述本人性格或私下关系。</footer>
+<noscript>请在浏览器中启用 JavaScript 以开始答题。</noscript>
+</main>
+<script>
+// 每题原始顺序：开场、回忆、留白、支线；展示时轮换位置。
+const questions = [
+  ['你在便利店等关东煮，一抬头认出了很久没联系的旧友。你会？','举一下纸杯，说声「好久不见」。','认出对方手里的饮料：「还是这个口味呀。」','笑着点个头，等各自取完餐。','指指锅里：「这家鱼丸今天居然没卖完。」'],
+  ['出门突然下雨，你们刚好都在门檐下。你会？','问一句：「你往哪边走？顺路的话一起？」','想起以前那把总翻面的伞，顺口提一句。','一起看看雨势，等这一阵过去。','翻出包里的折叠伞：「来猜猜它有多大。」'],
+  ['旧群里冒出一张几年前的合照，你会回什么？','「大家最近怎么样？」','「我还记得拍完这张，我们去买了烤红薯。」','给照片点个小红心。','把角落里那只路过的狗圈出来：「它也入镜了！」'],
+  ['如果要给重逢挑个地方，你会约在哪儿？','有张两人桌、能慢慢聊的咖啡店。','以前放学路上常钻进去的面包店。','人不多、能一起散个步的河边。','能夹娃娃，顺便研究机器手劲的街机厅。'],
+  ['你打了一行字，准备发给很久没联系的旧友。哪行最顺手？','「嗨，最近有空喝杯东西吗？」','「今天路过那家店，招牌还长原来那样。」','「路过想到你啦，给你留个小问候。」','「我刚遇到一只长得像荷包蛋的狗。」'],
+  ['手机推荐了一首你们以前常听的歌，你会？','把歌发过去，问对方最近在听什么。','把歌放完，想想当时单曲循环的那个夏天。','戴上耳机听一会儿，把这首歌留给今天的通勤。','用它给路边一只踱步的鸽子配个出场音乐。'],
+  ['见面以后，话题刚好停在一个句号。你接什么？','「你最近有没有遇到什么开心的事？」','「我们以前好像也坐过这种会晃的椅子。」','喝口水，看看窗外，等下一句自然出现。','「如果这只杯子会说话，它刚刚会说什么？」'],
+  ['这趟重逢小旅行只带一件小物，你选？','一张写着「有空就坐坐」的小卡片。','一张夹在书里好几年的旧票根。','一对耳机，留给各自看风景的时间。','一台拍出来谁都不知道会怎样的玩具相机。'],
+  ['旧友问「你怎么也来了？」你顺手接哪句？','「刚好路过。你今天怎么安排？」','「这条路我以前可没少走。」','「来买点东西，刚好碰上啦。」','「来执行一项重大任务：给晚饭挑配菜。」'],
+  ['逛超市时碰到旧友，聊了几句就走到零食区。你会？','问问对方最近发现了什么常回购的零食。','指给对方看以前总一起拆的那袋薯片。','边挑东西边聊，逛到路口就各走各的。','找一包看不懂是什么味的薯片，现场起名。'],
+  ['聊天时提到当年那件小分歧，你最想怎么接？','「如果你也想聊，我们可以把各自那一段说说。」','「我记得那天是下雨的，咱们说的是同一天吗？」','「这段可以慢慢聊，今天先到这儿也行。」','「咱们续杯茶？我去倒，回来再慢慢说。」'],
+  ['你们要一起拍一张照片当作今天的纪念。怎么拍？','请路人帮忙，给这次见面留一张合影。','找个旧照片里出现过的角落，站回原来的位置。','各自拍一张眼前的光，想发给对方就发。','给两杯饮料拍合影，让吸管负责摆姿势。'],
+  ['对方说「今天只能待十分钟」。你想怎么过？','把茶端过来，挑一件最近发生的事聊聊。','聊聊路口那家老店现在搬到了哪儿。','在门口站会儿，吹吹风就到了说再见的时候。','用两分钟找出菜单上最有趣的菜名。'],
+  ['分别后回到家，你想怎么给今天收个尾？','发一句「今天见到你挺开心的」。','把这次的照片和以前的放进同一个相册。','在日历上给今天画个小太阳。','给误入合照的路灯配一句片尾字幕。'],
+  ['如果今天能留下一条语音，你想录什么？','「下回想喝茶的话，可以叫我。」','「我找到了上次你说的那首歌。」','十秒风声，再说一句「到家啦」。','模仿一下关东煮摊的叫卖声，顺便报个菜单。'],
+  ['列车经过一段风景特别好的地方，你想到的是？','有机会的话，下次可以约在这站走走。','它有点像以前一起坐公交时看到的那片天。','先把手机放下，看完这一小段。','给山头起名：这座叫馒头，那座叫小笼包。'],
+  ['如果有人请你用一件东西代表这次碰面，你会交上？','一张写着下一杯茶的便签。','那家老店新印的纸袋。','两片从长椅边捡到的叶子。','一只抽到重复款、正好能一人一个的扭蛋。'],
+  ['如果这次相遇是一条朋友圈，你想怎么写？','「今天和一个好久不见的人聊了会儿。」','「一条老街，走出了几年前的熟悉感。」','「今天的风和太阳都刚刚好。」','「本日熟人：一位。意外收获：青蛙两只。」'],
+  ['朋友后来发来一句「那天还挺巧的」。你会回？','「是呀，有空还可以坐坐。」','「正巧是以前常一起去的那条街。」','「确实，刚好也是个好天气。」','「我宣布那家便利店获得本集最佳取景地。」'],
+  ['车到站了，给你的这一集挑一个片名吧。','《好久不见，从这句开始》','《那家面包店还开着》','《在门口坐了一会儿》','《重逢当天，抽到一只青蛙》']
+];
+const results = [
+  ['张萌','开场白车票','你愿意把近况聊起来：碰到了就问声好，有空就坐十分钟。再见面的时候，你先递过去的是一句能让人接得住的话。','你的随身道具是一张两人桌预约单。备注：有空就来，喝什么到时再点。','好久不见，今天有空坐坐吗？'],
+  ['许飞','老地方车票','一袋老口味的面包、一个常走的路口，都能让你想起曾经一起度过的那些小日子。你有时会从一句「这个还在呢」聊起。','你的脑内地图有隐藏图层。路过熟悉的坐标，就会弹出一条旧日花絮。','那家面包店还开着，走，看看去。'],
+  ['厉娜','窗边留白车票','你愿意把步子放慢：点个头、散段步，或者并排看会儿窗外。那天聊了几句、吹了会儿风，就足够成为值得收好的一个下午。','你的纪念册里有一栏叫「天气刚刚好」。今天那页贴着一枚小太阳。','在门口坐了一会儿，今天的风刚刚好。'],
+  ['马天宇','支线任务车票','你会留意相遇时冒出来的小趣事。也许先聊那锅鱼丸，也许两个人突然开始给杯子起名，一段舒服的相处就从手边的小事发生了。','你有张「看见扭蛋机就能打开」的支线地图。今日掉落：青蛙一只，笑场两次。','重逢当天，主线散步，支线抽青蛙。']
+];
+const order = [0,2,1,3,2,1,3,0,1,3,0,2,3,0,2,1,0,3,1,2];
+const app = document.querySelector('#app');
+let page = 0, answers = [];
+function show(markup) {
+  app.innerHTML = markup;
+  app.querySelector('h1,h2').focus({preventScroll:true});
+  window.scrollTo(0,0);
+}
+function home() {
+  page = 0;
+  answers = [];
+  show(`<div class="pad"><h1 tabindex="-1">下一站，<br>好久不见。</h1><p class="intro">如果偶遇那个曾经闹掰的朋友，你会怎么接住这次重逢？答 20 道日常小题，抽一张《后会友期》嘉宾彩蛋车票。</p></div>
+  <svg class="art" viewBox="0 0 740 190" aria-hidden="true">
+    <rect width="740" height="190" fill="#dfe9bd"/><circle cx="577" cy="56" r="29" fill="#f5c274"/>
+    <path d="M0 148 116 92 230 148 398 74 503 146 645 85 740 140V190H0Z" fill="#a9bf83"/>
+    <path d="M0 163Q190 124 376 170T740 145V190H0Z" fill="#6e9164"/>
+    <path d="M0 163H740" stroke="#294934" stroke-width="2"/><path d="M0 178H740" stroke="#294934" stroke-width="2" stroke-dasharray="8 8"/>
+    <g stroke="#234536" stroke-width="2.5"><path d="M188 111H462Q486 111 512 148V157H188Z" fill="#f7efcc"/><path d="M188 144H507" fill="none"/><path d="M204 111V157M368 111V157" fill="none"/><path d="M223 121h42v14h-42zm55 0h42v14h-42zm109 0h40v14h-40zm54 0h20l16 14h-36z" fill="#567f63"/><path d="M325 119h26v38h-26z" fill="#e6b767"/><circle cx="234" cy="159" r="6" fill="#234536"/><circle cx="470" cy="159" r="6" fill="#234536"/></g>
+  </svg><div class="stub"><span class="meta">20 道单选 · 每题都按你当下的感觉选</span><button class="primary" data-action="start">上车，开始答题</button></div>`);
+}
+function quiz() {
+  const [title, ...options] = questions[page];
+  const selected = answers[page];
+  const count = page + 1;
+  show(`<div class="pad"><div class="progress-label"><span>重逢小剧场</span><span>第 ${count} / ${questions.length} 题</span></div>
+  <div class="track" role="progressbar" aria-label="当前题目进度" aria-valuemin="0" aria-valuemax="${questions.length}" aria-valuenow="${count}"><div class="fill" style="width:${count / questions.length * 100}%"></div></div>
+  <h2 id="question" tabindex="-1">${title}</h2><div class="choices" role="group" aria-labelledby="question">${options.map((_, i) => {
+    const type = (i + order[page]) % results.length;
+    return `<button type="button" class="choice" data-action="answer" data-type="${type}" aria-pressed="${selected === type}"><span class="letter" aria-hidden="true">${'ABCD'[i]}</span><span>${options[type]}</span></button>`;
+  }).join('')}</div></div><div class="stub"><button type="button" class="secondary" data-action="back" ${page === 0 ? 'disabled' : ''}>上一题</button><span class="meta">选好就自动前进</span></div>`);
+}
+function review() {
+  show(`<div class="pad"><h2 tabindex="-1">到站啦，车票准备好了。</h2><p class="intro">20 / 20 题已完成。现在可以查收车票，也可以回去改答案。</p></div><div class="stub"><div class="actions"><button class="primary" data-action="finish">查收你的重逢车票</button><button class="secondary" data-action="review-back">返回修改</button></div></div>`);
+}
+function match(choices) {
+  const scores = results.map((_, type) => choices.filter(choice => choice === type).length);
+  const top = Math.max(...scores);
+  // 并列时，以最后一次选到的并列主题作为这一集的片名方向。
+  return choices.findLast(type => scores[type] === top);
+}
+function finish() {
+  const [name, ticket, why, extra, slogan] = results[match(answers)];
+  show(`<div class="pad result-header"><span class="stamp">你的重逢彩蛋车票</span><h2 class="result-name" tabindex="-1">${name}</h2><p>${ticket}</p></div>
+  <div class="pad result-body"><section><h3>为什么是你</h3><p>${why}</p></section><section><h3>隐藏特质与小彩蛋</h3><p>${extra}</p></section><blockquote class="slogan">「${slogan}」</blockquote></div>
+  <div class="stub"><div><div class="actions"><button class="primary" data-action="copy">复制分享语</button><button class="secondary" data-action="reset">重新测试</button></div><p class="copy-note" role="status"></p></div></div>`);
+  app.querySelector('[data-action="copy"]').addEventListener('click', async () => {
+    const share = `我在《后会友期》同人小测抽到了：${name} · ${ticket}。「${slogan}」 #后会友期 #友情小测试`;
+    const note = app.querySelector('.copy-note');
+    try {
+      await navigator.clipboard.writeText(share);
+      note.textContent = '已复制，可以发给朋友啦。';
+    } catch {
+      let field = app.querySelector('.fallback');
+      if (!field) {
+        field = document.createElement('textarea');
+        field.className = 'fallback';
+        field.readOnly = true;
+        field.setAttribute('aria-label', '可手动复制的分享语');
+        note.after(field);
+      }
+      field.value = share;
+      field.focus();
+      field.select();
+      let copied = false;
+      try { copied = document.execCommand('copy'); } catch {}
+      note.textContent = copied ? '已复制，可以发给朋友啦。' : '分享语已选中，也可以长按复制。';
+    }
+  });
+}
+app.addEventListener('click', (event) => {
+  const button = event.target.closest('button');
+  switch (button?.dataset.action) {
+    case 'start': quiz(); break;
+    case 'back': if (page > 0) { page--; quiz(); } break;
+    case 'answer':
+      answers[page] = Number(button.dataset.type);
+      if (page + 1 === questions.length) review();
+      else { page++; quiz(); }
+      break;
+    case 'review-back': quiz(); break;
+    case 'finish': finish(); break;
+    case 'reset': home(); break;
+  }
+});
+home();
+</script>
+</body>
+</html>
+
